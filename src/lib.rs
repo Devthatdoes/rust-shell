@@ -21,7 +21,7 @@ pub fn run() -> Result<()> {
     let command = get_command().context("getting command")?;
 
     match command {
-            Command::Exit => exit(0),
+            Command::Exit => break,
             Command::NotFound(command_string) => {
                 let error = CustomError::CommandNotFound(command_string);
                 print_error(error);
