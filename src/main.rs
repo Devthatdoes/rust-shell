@@ -1,8 +1,5 @@
-#[allow(unused_imports)]
-use std::io::{self, Write};
+use codecrafters_shell::run;
 
 fn main() {
-     // TODO: Uncomment the code below to pass the first stage
-    print!("$ ");
-     io::stdout().flush().unwrap();
+     run()
 }
