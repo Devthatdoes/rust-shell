@@ -1,25 +1,32 @@
+mod commands;
 mod errors;
-mod utilities;
+pub mod utilities;
 
 #[allow(unused_imports)]
 use std::io::{self, Write};
+use std::process;
 
-use anyhow::Result;
+use anyhow::{Context, Result};
 
 use crate::{
+    commands::Command,
     errors::CustomError,
-    utilities::{get_user_input, print_error},
+    utilities::{get_user_input, get_command, print_error, print_prompt, exit},
 };
 
 pub fn run() -> Result<()> {
     loop {
-    print!("$ ");
-    io::stdout().flush().unwrap();
-    let user_input = get_user_input()?;
-    let error = CustomError::CommandNotFound(user_input);
+    print_prompt(); 
+    
+    let command = get_command().context("getting command")?;
 
-
-    print_error(error);
+    match command {
+            Command::Exit => exit(0),
+            Command::NotFound(command_string) => {
+                let error = CustomError::CommandNotFound(command_string);
+                print_error(error);
+            }
+        }
 
     }
 
