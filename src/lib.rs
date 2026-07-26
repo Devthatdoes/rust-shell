@@ -12,6 +12,7 @@ use crate::{
 };
 
 pub fn run() -> Result<()> {
+    loop {
     print!("$ ");
     io::stdout().flush().unwrap();
     let user_input = get_user_input()?;
@@ -19,7 +20,10 @@ pub fn run() -> Result<()> {
 
 
     print_error(error);
-    
+
+    }
+
+    #[allow(unreachable_code)]
 
     Ok(())
 }
