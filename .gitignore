@@ -10,4 +10,4 @@ target/
 *.pdb
 
 # For recording progress
-.cast 
+*.cast 
