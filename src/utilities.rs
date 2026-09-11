@@ -28,10 +28,19 @@ pub fn print_prompt() {
 
 pub fn get_command() -> Result<Command> {
     let user_input = get_user_input()?;
-    let command = Command::from(user_input.as_str());
+    let command_and_arguments = parse_input(user_input);
+    let command = Command::from(command_and_arguments);
     Ok(command)
 }
 
 pub fn exit(code: i32) {
     process::exit(code);
+}
+
+pub fn parse_input(user_input: String) -> (String, String) {
+    let mut split_user_input = user_input.split_whitespace();
+    let command_input = split_user_input.next().unwrap_or(" ").to_owned();
+    let arguments = split_user_input.collect::<String>();
+
+    (command_input, arguments)
 }

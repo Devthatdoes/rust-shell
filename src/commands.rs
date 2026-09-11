@@ -1,13 +1,15 @@
 pub enum Command {
     Exit,
+    Echo(String),
     NotFound(String),
 }
 
-impl From<&str> for Command {
-    fn from(user_input: &str) -> Self {
-        match user_input {
+impl From<(String, String)> for Command {
+    fn from((command, arguments): (String, String)) -> Self {
+        match command.as_str() {
+            "echo" => Self::Echo(arguments),
             "exit" => Self::Exit,
-           _ => Self::NotFound(user_input.to_owned()),
+           _ => Self::NotFound(command),
         }
     }
 }

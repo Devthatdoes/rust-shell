@@ -9,9 +9,9 @@ use std::process;
 use anyhow::{Context, Result};
 
 use crate::{
-    commands::Command,
+    commands::{Command, echo::echo},
     errors::CustomError,
-    utilities::{get_user_input, get_command, print_error, print_prompt, exit},
+    utilities::{parse_input, get_user_input, get_command, print_error, print_prompt, exit},
 };
 
 pub fn run() -> Result<()> {
@@ -21,6 +21,7 @@ pub fn run() -> Result<()> {
     let command = get_command().context("getting command")?;
 
     match command {
+            Command::Echo(command_string) => echo(command_string),
             Command::Exit => break,
             Command::NotFound(command_string) => {
                 let error = CustomError::CommandNotFound(command_string);
